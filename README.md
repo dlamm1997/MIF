@@ -47,4 +47,22 @@ awk '{print $2}'  FS_qacc2tacc | sort -u >  FS_tacc.u
 awk '{print $2}' HMMER_qacc2tacc | sort -u > HMMER_tacc.u
 awk '{print $0}' FS_tacc.u HMMER_tacc.u  | sort -u > combined_tacc.u
 ```
+# Taxonomy Analysis
 
+1. Retreive uniprot to NCBI-TaxID mapping
+2. Convert to list of unique TaxIDs
+3. Retreive taxonomy summary files from NCBI using the databases software (also in script get_NCBI.sh)
+
+```
+curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/gvExAW1mHa?fields=accession%2Corganism_id&format=tsv" -o tmp.tacc2txid.u
+
+awk -F"\t" 'NR > 1{print $3}' tmp.tacc2txid.u | sort -u >  tmp.txid.u
+
+for id in `cat tmp.txid.u`; do datasets download taxonomy taxon $id  --filename /workdir/djl294/NCBI_tax_MIF/$id.zip ; done
+```
+# Protein Names
+1. Get Protein Names from UniProt
+   
+```
+curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/gvExAW1mHa?fields=accession%2Cprotein_name&format=tsv&query=%28*%29" -o combined_uniprot_protnames
+```
