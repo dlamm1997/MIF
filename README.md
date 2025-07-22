@@ -32,7 +32,7 @@ curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/nXYNvhQTCc?for
 cat HMMER_bacc | grep -f- phmmer_hits_E-6.tsv  > phmmer_hits_E-6_bact.tsv
 ```
 
-#Combining Accessions
+# Combining Accessions
 
 1. Get querry -> target mapping from foldseek results.
 2. Get querry -> target mapping from hmmer results.
