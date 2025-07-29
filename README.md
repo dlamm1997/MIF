@@ -66,3 +66,27 @@ for id in `cat tmp.txid.u`; do datasets download taxonomy taxon $id  --filename 
 ```
 curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/gvExAW1mHa?fields=accession%2Cprotein_name&format=tsv&query=%28*%29" -o combined_uniprot_protnames
 ```
+
+# Secretion Signal
+1. Retreive sequences of MIF-like proteins
+2. Retreive UniProt Annotation for Subcellular Localization of MIF like proteins
+3. Subset UniProt Annotations for Secreted Proteins
+4. Run SignalP 6.0 slow-sequential - note: this failed to produce some individual output files due to long names, but we only needed the summary file
+5. Run DeepTMHMM
+6. Run DeepLocPro
+
+```
+curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/gvExAW1mHa?format=fasta" -o MIFs.fasta
+
+curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/gvExAW1mHa?fields=accession%2Ccc_subcellular_location&format=tsv" -o MIFs_UniProt_SubcellularLocalization
+
+grep "Secreted"  MIFs_UniProt_SubcellularLocalization | awk '{print $1}' > MIFs_UniProt_Secreted
+
+nohup singularity run --bind $PWD:/data --pwd /data /programs/signalp-6/signalp6-cpu.sif   signalp6 --fastafile MIFs.fasta --output_dir signal_p_out --mode slow > signalp_mif.log 2>&1 &
+
+docker1 run -v /workdir/djl294/:/openprotein/data/ -w /openprotein -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 --rm a982e3785a74 python3 predict.py --fasta data/MIFs.fasta
+
+deeplocpro -f /workdir/djl294/MIFs.fasta  -o /workdir/djl294/deeplocpro_out/
+```
+
+   
