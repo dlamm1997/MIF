@@ -1,5 +1,7 @@
 # FoldSeek Search & Filtering
 
+(updated with qcov80)
+
 1. Search MIF & DDT strucutures against alphafold foldseek database.
 2. Filter for TM score >= 0.5, and probability score = 1
 3. Get unique list of target accessions.
@@ -8,12 +10,12 @@
 6. Use bacterial accessions to filter alignemnet data.
 
 ```
-nohup ~/foldseek/bin/foldseek easy-search mif_ddt_structs/ /local/workdir/refdbs/foldseek_afdb/afdb Foldseek_hits_exhaustive_cov80.m8 tmpfolder --threads 50 --exhaustive-search  -c 0.8 --cov-mode 0 --format-output "query,target,pident,alntmscore,prob,evalue,alnlen,qstart,qend,tstart,tend,qseq,tseq" &
-awk -F"\t" '$4 >= 0.5 && $5 == 1 {print $0}' Foldseek_hits_exhaustive_cov80.m8 > Foldseek_hits_exhaustive_cov80_TM50_prob1.m8
-awk -F"\t" '{print $2}' Foldseek_hits_exhaustive_cov80_TM50_prob1.m8  | sort -u | awk -F"-" '{print $2}' > taccs.u
-curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/zWKOzO4Y88?fields=accession%2Corganism_name%2Clineage&format=tsv" -o FS_uniprot_taxa_mapping
-grep "Bacteria" FS_uniprot_taxa_mapping | awk '{print $1}' > FS_bacc
-cat FS_bacc | grep -f- Foldseek_hits_exhaustive_cov80_TM50_prob1.m8 > Foldseek_hits_exhaustive_cov80_TM50_prob1_bact.m8
+nohup ~/foldseek/bin/foldseek easy-search mif_ddt_structs/ /local/workdir/refdbs/foldseek_afdb/afdb Foldseek_hits_exhaustive_Qcov80.m8 tmpfolder --threads 50 --exhaustive-search  -c 0.8 --cov-mode 2 --format-output "query,target,pident,alntmscore,prob,evalue,alnlen,qstart,qend,tstart,tend,qseq,tseq" &
+awk -F"\t" '$4 >= 0.5 && $5 == 1 {print $0}' Foldseek_hits_exhaustive_Qcov80.m8 > Foldseek_hits_exhaustive_Qcov80_TM50_prob1.m8
+awk -F"\t" '{print $2}' Foldseek_hits_exhaustive_Qcov80_TM50_prob1.m8  | sort -u | awk -F"-" '{print $2}' > taccs.u
+curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/lDM0I865cp?fields=accession%2Clineage&format=tsv" -o FS_uniprot_taxa_mapping_qcov80
+grep "Bacteria" FS_uniprot_taxa_mapping_qcov80 | awk '{print $1}' > FS_qcov80_bacc
+cat FS_qcov80_bacc | grep -f- Foldseek_hits_exhaustive_Qcov80_TM50_prob1.m8 > Foldseek_hits_exhaustive_Qcov80_TM50_prob1_bact.m8
 ```
 
 
@@ -33,7 +35,7 @@ cat HMMER_bacc | grep -f- phmmer_hits_E-6.tsv  > phmmer_hits_E-6_bact.tsv
 ```
 
 # Combining Accessions
-
+(updated with qcov80)
 1. Get querry -> target mapping from foldseek results.
 2. Get querry -> target mapping from hmmer results.
 3. Get just unique target accessions from foldseek results.
@@ -41,13 +43,15 @@ cat HMMER_bacc | grep -f- phmmer_hits_E-6.tsv  > phmmer_hits_E-6_bact.tsv
 5. Get unique set of combinded accessions.
 
 ```
-awk -F"-" '{print $2, $5}' Foldseek_hits_exhaustive_cov80_TM50_prob1_bact.m8  > FS_qacc2tacc
+awk -F"-" '{print $2, $5}' Foldseek_hits_exhaustive_Qcov80_TM50_prob1_bact.m8  > FS_qacc2tacc_Qcov80
 awk  '{print $1, $3}' phmmer_hits_E-6_bact.tsv  | awk -F"|" '{print $2,$3}' | awk '{print $1, $3}' | sed 's/MIF_//g' | awk '{print $2, $1}' > HMMER_qacc2tacc
-awk '{print $2}'  FS_qacc2tacc | sort -u >  FS_tacc.u
+awk '{print $2}'  FS_qacc2tacc_Qcov80 | sort -u >  FS_tacc_Qcov80.u
 awk '{print $2}' HMMER_qacc2tacc | sort -u > HMMER_tacc.u
-awk '{print $0}' FS_tacc.u HMMER_tacc.u  | sort -u > combined_tacc.u
+awk '{print $0}' FS_tacc_Qcov80.u HMMER_tacc.u  | sort -u > combined_tacc_FSQcov80.u
 ```
 # Taxonomy Analysis
+
+(For new qcov80 results, ran the same steps only on new IDs, then merged in the analysis.ipynb to save time)
 
 1. Retreive uniprot to NCBI-TaxID mapping
 2. Convert to list of unique TaxIDs
@@ -55,19 +59,20 @@ awk '{print $0}' FS_tacc.u HMMER_tacc.u  | sort -u > combined_tacc.u
 
 ```
 curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/gvExAW1mHa?fields=accession%2Corganism_id&format=tsv" -o tmp.tacc2txid.u
-
 awk -F"\t" 'NR > 1{print $3}' tmp.tacc2txid.u | sort -u >  tmp.txid.u
-
 for id in `cat tmp.txid.u`; do datasets download taxonomy taxon $id  --filename /workdir/djl294/NCBI_tax_MIF/$id.zip ; done
 ```
 # Protein Names
 1. Get Protein Names from UniProt
    
-```
-curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/gvExAW1mHa?fields=accession%2Cprotein_name&format=tsv&query=%28*%29" -o combined_uniprot_protnames
+``
+`curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/nV2GFE0eyo?fields=accession%2Cprotein_name&format=tsv" -o combined_uniprot_protnames_Qcov80
 ```
 
 # Secretion Signal
+
+(For new qcov80 results, ran the same steps only on new IDs, then merged in the analysis.ipynb to save time)
+
 1. Retreive sequences of MIF-like proteins
 2. Retreive UniProt Annotation for Subcellular Localization of MIF like proteins
 3. Subset UniProt Annotations for Secreted Proteins
