@@ -65,8 +65,8 @@ for id in `cat tmp.txid.u`; do datasets download taxonomy taxon $id  --filename 
 # Protein Names
 1. Get Protein Names from UniProt
    
-``
-`curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/nV2GFE0eyo?fields=accession%2Cprotein_name&format=tsv" -o combined_uniprot_protnames_Qcov80
+```
+curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/nV2GFE0eyo?fields=accession%2Cprotein_name&format=tsv" -o combined_uniprot_protnames_Qcov80
 ```
 
 # Secretion Signal
