@@ -94,4 +94,24 @@ docker1 run -v /workdir/djl294/:/openprotein/data/ -w /openprotein -e LC_ALL=C.U
 deeplocpro -f /workdir/djl294/MIFs.fasta  -o /workdir/djl294/deeplocpro_out/
 ```
 
+# Domain Analysis 
+
+
+1. Retreive domain counts from TED database
+2. Get subset of MIFs with multiple domains
+3. For multidomain MIFs, retreive associated CATH labels
+4. Retreive CATH database label to description (name) mapping
+5. simplify the above to a TSV file that can be easily read into pandas
+
+```
+cat combined_tacc_FSQcov80.u   | parallel -j 8 'count=$(curl -s "https://ted.cathdb.info/api/v1/uniprot/summary/{}?skip=0&limit=100" | jq ".count") echo "{}, $count"' > tacc2domcounts
+
+awk -F"," '$2 >= 2 {print $1}' tacc2domcounts > MIFs_multidomain
+
+cat MIFs_multidomain | parallel -j 8 'acc={} json=$(curl -s "https://ted.cathdb.info/api/v1/uniprot/summary/$acc?skip=0&limit=100") labels=$(echo "$json" | jq -r ".data[].cath_label" | sed "s/^-$/unknown_domain/" | paste -sd "," -) echo "$acc $labels"' > tacc2domlabels
+
+curl "http://download.cathdb.info/cath/releases/latest-release/cath-classification-data/cath-names.txt" -o cath-names.txt
+
+awk -F"    " 'NR > 17 {OFS="\t"; print $1, $3 }' cath-names.txt | sed 's/://g' > cathid2name
+```
    
