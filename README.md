@@ -6,7 +6,7 @@
 2. Filter for TM score >= 0.5, and probability score = 1
 3. Get unique list of target accessions.
 4. Retrieve uniprot mapping with taxanomy information.
-5. Filter for bacterial accessions.
+5. Filter for bacterial accessions; remove redunant accession from mapping
 6. Use bacterial accessions to filter alignemnet data.
 
 ```
@@ -14,7 +14,7 @@ nohup ~/foldseek/bin/foldseek easy-search mif_ddt_structs/ /local/workdir/refdbs
 awk -F"\t" '$4 >= 0.5 && $5 == 1 {print $0}' Foldseek_hits_exhaustive_Qcov80.m8 > Foldseek_hits_exhaustive_Qcov80_TM50_prob1.m8
 awk -F"\t" '{print $2}' Foldseek_hits_exhaustive_Qcov80_TM50_prob1.m8  | sort -u | awk -F"-" '{print $2}' > taccs.u
 curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/lDM0I865cp?fields=accession%2Clineage&format=tsv" -o FS_uniprot_taxa_mapping_qcov80
-grep "Bacteria" FS_uniprot_taxa_mapping_qcov80 | awk '{print $1}' > FS_qcov80_bacc
+grep "Bacteria" FS_uniprot_taxa_mapping_qcov80 | awk '{print $2}' | sort -u > FS_qcov80_bacc
 cat FS_qcov80_bacc | grep -f- Foldseek_hits_exhaustive_Qcov80_TM50_prob1.m8 > Foldseek_hits_exhaustive_Qcov80_TM50_prob1_bact.m8
 ```
 
@@ -25,13 +25,16 @@ cat FS_qcov80_bacc | grep -f- Foldseek_hits_exhaustive_Qcov80_TM50_prob1.m8 > Fo
 2. Filter for E-value <= 10^-6
 3. Get unique list of target accessions.
 4. Retreive uniprot list of bacterial accessions
+5. Remove redundant accessions from mapping
+6. Filter hmmer results for bacterial accessions.
 
 ```
 nohup phmmer  --tblout phmmer_hits.tsv  mif_ddt.fasta /local/workdir/refdbs/UniProtKB/uniprot_sprot_trembl.fasta.gz  &
 awk 'NR > 3  && $5 <= 0.000001 {print $0}' phmmer_hits.tsv > phmmer_hits_E-6.tsv
 awk -F"|" '{print $2}' phmmer_hits_E-6.tsv  | sort -u  > taccs.u
 curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/nXYNvhQTCc?format=list&query=%28%28taxonomy_id%3A2%29%29" -o HMMER_bacc
-cat HMMER_bacc | grep -f- phmmer_hits_E-6.tsv  > phmmer_hits_E-6_bact.tsv
+sort -u HMMER_bacc > HMMER_bacc.u
+cat HMMER_bacc.u | grep -f- phmmer_hits_E-6.tsv  > phmmer_hits_E-6_bact.tsv
 ```
 
 # Combining Accessions
