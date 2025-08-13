@@ -65,11 +65,14 @@ curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/gvExAW1mHa?fie
 awk -F"\t" 'NR > 1{print $3}' tmp.tacc2txid.u | sort -u >  tmp.txid.u
 for id in `cat tmp.txid.u`; do datasets download taxonomy taxon $id  --filename /workdir/djl294/NCBI_tax_MIF/$id.zip ; done
 ```
+
 # Protein Names
 1. Get Protein Names from UniProt
+2. Remove Redundant Accessions
    
 ```
 curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/nV2GFE0eyo?fields=accession%2Cprotein_name&format=tsv" -o combined_uniprot_protnames_Qcov80
+awk -F"\t" 'NR > 1 {OFS="\t" ; print $2, $3}' combined_uniprot_protnames_Qcov80 | sort -u > combined_uniprot_protnames_Qcov80.u
 ```
 
 # Secretion Signal
