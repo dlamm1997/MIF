@@ -140,6 +140,7 @@ deeplocpro -f /workdir/djl294/MIFs.fasta  -o /workdir/djl294/deeplocpro_out/
 3. For multidomain MIFs, retreive associated CATH labels
 4. Retreive CATH database label to description (name) mapping
 5. simplify the above to a TSV file that can be easily read into pandas
+6. Get list of non-redunant single domain proteins for use in MOTIF analysis
 
 ```
 cat combined_tacc_FSQcov80.u   | parallel -j 8 'count=$(curl -s "https://ted.cathdb.info/api/v1/uniprot/summary/{}?skip=0&limit=100" | jq ".count") echo "{}, $count"' > tacc2domcounts
