@@ -73,7 +73,7 @@ for id in `cat tmp.txid.u`; do datasets download taxonomy taxon $id  --filename 
 
 # Protein Names
 
-(updated with qcov80)
+(updated with qcov80 and redundant removal)
 
 1. Get Protein Names from UniProt
 2. Remove Redundant Accessions
@@ -85,7 +85,10 @@ awk -F"\t" 'NR > 1 {OFS="\t" ; print $2, $3}' combined_uniprot_protnames_Qcov80 
 
 # Secretion Signal
 
-(For new qcov80 results, ran the same steps only on new IDs, then merged in the analysis.ipynb to save time)
+(updated with qcov80 & redundant removal)
+
+-For new qcov80 results, ran the same steps only on new IDs, then merged in the analysis.ipynb to save time
+-For removing redunant accessions, I just updated the analysis.ipynb, to find the union between previous predictions and the non-redunant accession set to save time
 
 1. Retreive sequences of MIF-like proteins
 2. Retreive UniProt Annotation for Subcellular Localization of MIF like proteins
