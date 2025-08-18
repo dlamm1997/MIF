@@ -1,3 +1,17 @@
+# Note: 
+
+After the inital run, there have been two major updates
+
+1) Changing original foldseek paramaters from **--cove-mode 0 ** (target and query coverage of 80% in the alignment) to **--cov-mode 2 ** (just query coverage of 80% in the alignment) to avoid filtering out multidomain mif like proteins
+2) An earlier version of the pipeline pulled accessions from the first column when using uniprot ID mapping. This results in redundant accessions in cases where IDs have been merged. We went back and removed those redundant accessions, however we are okay with redundant/identical sequences if they are still mapped to unique accessions as this may represent and indetical gene in different but closely related organisms.
+
+In both of the above cases we either:
+a) Re-ran the pipeline steps with adjusted parameters/input data
+b) Ran the same analysis on just the new accesions and then merged with the old accesions for time/copute intensive task
+c) Removed the  redundnant accesions at the output steps for time/copute intensive task
+
+These changes are noted throughout.
+
 # FoldSeek Search & Filtering
 
 (updated with qcov80)
@@ -21,6 +35,8 @@ cat FS_qcov80_bacc | grep -f- Foldseek_hits_exhaustive_Qcov80_TM50_prob1.m8 > Fo
 
 # HMMER Search & Filtering
 
+(updated with redundant removal)
+
 1. Search MIF & DDT Sequences against all uniprot swiss-prot and tremble sequences
 2. Filter for E-value <= 10^-6
 3. Get unique list of target accessions.
@@ -38,7 +54,9 @@ cat HMMER_bacc.u | grep -f- phmmer_hits_E-6.tsv  > phmmer_hits_E-6_bact.tsv
 ```
 
 # Combining Accessions
-(updated with qcov80)
+
+(updated with qcov80 & redundant removal)
+
 1. Get querry -> target mapping from foldseek results.
 2. Get querry -> target mapping from hmmer results.
 3. Get just unique target accessions from foldseek results.
@@ -73,7 +91,7 @@ for id in `cat tmp.txid.u`; do datasets download taxonomy taxon $id  --filename 
 
 # Protein Names
 
-(updated with qcov80 and redundant removal)
+(updated with qcov80 & redundant removal)
 
 1. Get Protein Names from UniProt
 2. Remove Redundant Accessions
@@ -113,6 +131,9 @@ deeplocpro -f /workdir/djl294/MIFs.fasta  -o /workdir/djl294/deeplocpro_out/
 
 # Domain Analysis 
 
+(updated with qcov80 & redundant removal)
+
+-For removing redunant accessions, I just updated the analysis.ipynb, except in generating the list of non-redunant single accesions (see step 6).
 
 1. Retreive domain counts from TED database
 2. Get subset of MIFs with multiple domains
@@ -130,5 +151,7 @@ cat MIFs_multidomain | parallel -j 8 'acc={} json=$(curl -s "https://ted.cathdb.
 curl "http://download.cathdb.info/cath/releases/latest-release/cath-classification-data/cath-names.txt" -o cath-names.txt
 
 awk -F"    " 'NR > 17 {OFS="\t"; print $1, $3 }' cath-names.txt | sed 's/://g' > cathid2name
+
+awk -F", " 'FNR==NR {arr[$1] ; next} $1 in arr {print $0}' combined_tacc_FSQcov80.u  tacc2domcounts | awk -F", " '$2==1 {print $1}' > tacc2domcounts_nonredun_singledom_accs
 ```
    
