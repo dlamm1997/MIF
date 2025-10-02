@@ -155,4 +155,12 @@ awk -F"    " 'NR > 17 {OFS="\t"; print $1, $3 }' cath-names.txt | sed 's/://g' >
 
 awk -F", " 'FNR==NR {arr[$1] ; next} $1 in arr {print $0}' combined_tacc_FSQcov80.u  tacc2domcounts | awk -F", " '$2==1 {print $1}' > tacc2domcounts_nonredun_singledom_accs
 ```
-   
+
+
+# Motif Analysis 
+
+1. Retreived Relevant Structures for structure gudied motif analysis (see jupyter notebook for details).
+
+```
+cat combined_tacc_FSQcov80.u | parallel "curl 'https://alphafold.ebi.ac.uk/files/AF-{}-F1-model_v4.pdb' -o /local/workdir/djl294/all_mif_structs
+```
