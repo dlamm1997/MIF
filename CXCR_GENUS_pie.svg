@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-02-24T13:41:26.495089</dc:date>
+    <dc:date>2026-03-21T15:17:40.809228</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -103,7 +103,7 @@ C 306.254237 111.777131 319.058869 124.581763 329.637349 139.141791
 C 340.215828 153.701819 348.436909 169.836597 353.998344 186.952937 
 C 359.55978 204.069276 362.392571 221.954816 362.392571 239.952 
 z
-" clip-path="url(#p3a0e2d7625)" style="fill: #a1c9f4; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#paa04caf064)" style="fill: #1f77b4; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 190.884 239.952 
@@ -113,7 +113,7 @@ L 291.694209 378.705349
 C 284.425368 383.986471 276.752761 388.688251 268.747262 392.767256 
 C 260.741763 396.846262 252.428098 400.289894 243.883063 403.066344 
 z
-" clip-path="url(#p3a0e2d7625)" style="fill: #ffb482; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#paa04caf064)" style="fill: #ff7f0e; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 190.884 239.952 
@@ -123,7 +123,7 @@ L 329.637349 340.762209
 C 324.356227 348.03105 318.512074 354.873674 312.158874 361.226874 
 C 305.805674 367.580074 298.96305 373.424227 291.694209 378.705349 
 z
-" clip-path="url(#p3a0e2d7625)" style="fill: #8de5a1; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#paa04caf064)" style="fill: #2ca02c; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 190.884 239.952 
@@ -133,7 +133,7 @@ L 353.998344 292.951063
 C 351.221894 301.496098 347.778262 309.809763 343.699256 317.815262 
 C 339.620251 325.820761 334.918471 333.493368 329.637349 340.762209 
 z
-" clip-path="url(#p3a0e2d7625)" style="fill: #ff9f9b; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#paa04caf064)" style="fill: #d62728; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
     <path d="M 190.884 239.952 
@@ -143,7 +143,7 @@ L 362.392571 239.952
 C 362.392571 248.936781 361.686546 257.907688 360.281016 266.781852 
 C 358.875487 275.656016 356.774795 284.406028 353.998344 292.951063 
 z
-" clip-path="url(#p3a0e2d7625)" style="fill: #d0bbff; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#paa04caf064)" style="fill: #9467bd; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="matplotlib.axis_1"/>
    <g id="matplotlib.axis_2"/>
@@ -190,7 +190,7 @@ L 432.4764 200.056688
 L 432.4764 189.556688 
 L 402.4764 189.556688 
 z
-" style="fill: #a1c9f4; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #1f77b4; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_2">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="444.4764" y="200.056688" transform="rotate(-0 444.4764 200.056688)">Mycobacterium: 80.0%</text>
@@ -201,7 +201,7 @@ L 432.4764 222.073875
 L 432.4764 211.573875 
 L 402.4764 211.573875 
 z
-" style="fill: #ffb482; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #ff7f0e; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_3">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="444.4764" y="222.073875" transform="rotate(-0 444.4764 222.073875)">Bradyrhizobium: 5.0%</text>
@@ -212,7 +212,7 @@ L 432.4764 244.091063
 L 432.4764 233.591063 
 L 402.4764 233.591063 
 z
-" style="fill: #8de5a1; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #2ca02c; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_4">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="444.4764" y="244.091063" transform="rotate(-0 444.4764 244.091063)">Fimbriiglobus: 5.0%</text>
@@ -223,7 +223,7 @@ L 432.4764 266.10825
 L 432.4764 255.60825 
 L 402.4764 255.60825 
 z
-" style="fill: #ff9f9b; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #d62728; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_5">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="444.4764" y="266.10825" transform="rotate(-0 444.4764 266.10825)">Gordonia: 5.0%</text>
@@ -234,7 +234,7 @@ L 432.4764 288.125437
 L 432.4764 277.625437 
 L 402.4764 277.625437 
 z
-" style="fill: #d0bbff; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #9467bd; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_6">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="444.4764" y="288.125437" transform="rotate(-0 444.4764 288.125437)">Other: 5.0%</text>
@@ -243,7 +243,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p3a0e2d7625">
+  <clipPath id="paa04caf064">
    <path d="M 370.968 239.952 
 C 370.968 216.303586 366.309778 192.885123 357.259922 171.036837 
 C 348.210065 149.188551 334.944572 129.335336 318.222618 112.613382 
