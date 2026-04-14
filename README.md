@@ -1,27 +1,12 @@
-# Note: 
 
-After the inital run, there have been two major updates
+# Foldseek Search & Filtering
 
-1) Changing original foldseek paramaters from **--cove-mode 0 ** (target and query coverage of 80% in the alignment) to **--cov-mode 2 ** (just query coverage of 80% in the alignment) to avoid filtering out multidomain mif like proteins
-2) An earlier version of the pipeline pulled accessions from the first column when using uniprot ID mapping. This results in redundant accessions in cases where IDs have been merged. We went back and removed those redundant accessions, however we are okay with redundant/identical sequences if they are still mapped to unique accessions as this may represent and indetical gene in different but closely related organisms.
-
-In both of the above cases we either:
-a) Re-ran the pipeline steps with adjusted parameters/input data
-b) Ran the same analysis on just the new accesions and then merged with the old accesions for time/copute intensive task
-c) Removed the  redundnant accesions at the output steps for time/copute intensive task
-
-These changes are noted throughout.
-
-# FoldSeek Search & Filtering
-
-(updated with qcov80)
-
-1. Search MIF & DDT strucutures against alphafold foldseek database.
+1. Search MIF & DDT structures against AlphaFold and Foldseek database.
 2. Filter for TM score >= 0.5, and probability score = 1
 3. Get unique list of target accessions.
-4. Retrieve uniprot mapping with taxanomy information.
-5. Filter for bacterial accessions; remove redunant accession from mapping
-6. Use bacterial accessions to filter alignemnet data.
+4. Retrieve UniProt mapping with taxonomy information.
+5. Filter for bacterial accessions; remove redundant accession from mapping
+6. Use bacterial accessions to filter alignment data.
 
 ```
 nohup ~/foldseek/bin/foldseek easy-search mif_ddt_structs/ /local/workdir/refdbs/foldseek_afdb/afdb Foldseek_hits_exhaustive_Qcov80.m8 tmpfolder --threads 50 --exhaustive-search  -c 0.8 --cov-mode 2 --format-output "query,target,pident,alntmscore,prob,evalue,alnlen,qstart,qend,tstart,tend,qseq,tseq" &
@@ -35,14 +20,13 @@ cat FS_qcov80_bacc | grep -f- Foldseek_hits_exhaustive_Qcov80_TM50_prob1.m8 > Fo
 
 # HMMER Search & Filtering
 
-(updated with redundant removal)
 
-1. Search MIF & DDT Sequences against all uniprot swiss-prot and tremble sequences
+1. Search MIF & DDT Sequences against all UniProt Swiss-Prot and TrEMBL sequences
 2. Filter for E-value <= 10^-6
 3. Get unique list of target accessions.
-4. Retreive uniprot list of bacterial accessions
+4. Retrieve UniProt list of bacterial accessions
 5. Remove redundant accessions from mapping
-6. Filter hmmer results for bacterial accessions.
+6. Filter HMMER results for bacterial accessions.
 
 ```
 nohup phmmer  --tblout phmmer_hits.tsv  mif_ddt.fasta /local/workdir/refdbs/UniProtKB/uniprot_sprot_trembl.fasta.gz  &
@@ -55,13 +39,11 @@ cat HMMER_bacc.u | grep -f- phmmer_hits_E-6.tsv  > phmmer_hits_E-6_bact.tsv
 
 # Combining Accessions
 
-(updated with qcov80 & redundant removal)
-
-1. Get querry -> target mapping from foldseek results.
-2. Get querry -> target mapping from hmmer results.
-3. Get just unique target accessions from foldseek results.
-4. Get just unique target accessions from hmmer results.
-5. Get unique set of combinded accessions.
+1. Get query -> target mapping from Foldseek results.
+2. Get query -> target mapping from HMMER results.
+3. Get just unique target accessions from Foldseek results.
+4. Get just unique target accessions from HMMER results.
+5. Get unique set of combined accessions.
 
 ```
 awk -F"-" '{print $2, $5}' Foldseek_hits_exhaustive_Qcov80_TM50_prob1_bact.m8  > FS_qacc2tacc_Qcov80
@@ -72,15 +54,10 @@ awk '{print $0}' FS_tacc_Qcov80.u HMMER_tacc.u  | sort -u > combined_tacc_FSQcov
 ```
 # Taxonomy Analysis
 
-(updated with qcov80 & redundant removal)
-
--when updating with qcov80 steps 3&4 where repeated with just new identifiers, and merged in to save time
--when updating for redundant removal, steps 3 and 4 did not need to be re-ran, because we only removed accessions. only the updated accessions where analyzed in the Analysis.ipynb.
-
-1. Retreive uniprot to NCBI-TaxID mapping
-2. Remove any redunant acessions from the uniprot mapping
+1. Retrieve UniProt to NCBI-TaxID mapping
+2. Remove any redundant accessions from the UniProt mapping
 3. Convert to list of unique TaxIDs
-4. Retreive taxonomy summary files from NCBI using the databases software (also in script get_NCBI.sh)
+4. Retrieve taxonomy summary files from NCBI using the databases software (also in script get_NCBI.sh)
 
 ```
 curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/cR3BNoAqhC?fields=accession%2Corganism_id&format=tsv" -o tmp.tacc2txid
@@ -91,10 +68,8 @@ for id in `cat tmp.txid.u`; do datasets download taxonomy taxon $id  --filename 
 
 # Protein Names
 
-(updated with qcov80 & redundant removal)
-
-1. Get Protein Names from UniProt
-2. Remove Redundant Accessions
+1. Get protein names from UniProt
+2. Remove redundant accessions
    
 ```
 curl "https://rest.uniprot.org/idmapping/uniprotkb/results/stream/nV2GFE0eyo?fields=accession%2Cprotein_name&format=tsv" -o combined_uniprot_protnames_Qcov80
@@ -103,14 +78,9 @@ awk -F"\t" 'NR > 1 {OFS="\t" ; print $2, $3}' combined_uniprot_protnames_Qcov80 
 
 # Secretion Signal
 
-(updated with qcov80 & redundant removal)
-
--For new qcov80 results, ran the same steps only on new IDs, then merged in the analysis.ipynb to save time
--For removing redunant accessions, I just updated the analysis.ipynb, to find the union between previous predictions and the non-redunant accession set to save time
-
-1. Retreive sequences of MIF-like proteins
-2. Retreive UniProt Annotation for Subcellular Localization of MIF like proteins
-3. Subset UniProt Annotations for Secreted Proteins
+1. Retrieve sequences of MIF mimics
+2. Retrieve UniProt annotation for subcellular localization of MIF mimics
+3. Subset UniProt annotations for secreted proteins
 4. Run SignalP 6.0 slow-sequential - note: this failed to produce some individual output files due to long names, but we only needed the summary file
 5. Run DeepTMHMM
 6. Run DeepLocPro
@@ -129,18 +99,27 @@ docker1 run -v /workdir/djl294/:/openprotein/data/ -w /openprotein -e LC_ALL=C.U
 deeplocpro -f /workdir/djl294/MIFs.fasta  -o /workdir/djl294/deeplocpro_out/
 ```
 
+
+
+# Motif Analysis 
+
+1. Retrieved relevant structures for structure guided motif analysis (see jupyter notebook for details).
+
+```
+cat combined_tacc_FSQcov80.u | parallel "curl 'https://alphafold.ebi.ac.uk/files/AF-{}-F1-model_v4.pdb' -o /local/workdir/djl294/all_mif_structs
+```
+
+
 # Domain Analysis 
 
-(updated with qcov80 & redundant removal)
+-Couldn't find a good space for this in the publication. There are some multidomain MIF mimic proteins.
 
--For removing redunant accessions, I just updated the analysis.ipynb, except in generating the list of non-redunant single accesions (see step 6).
-
-1. Retreive domain counts from TED database
+1. Retrieve domain counts from TED database
 2. Get subset of MIFs with multiple domains
-3. For multidomain MIFs, retreive associated CATH labels
-4. Retreive CATH database label to description (name) mapping
-5. simplify the above to a TSV file that can be easily read into pandas
-6. Get list of non-redunant single domain proteins for use in MOTIF analysis
+3. For multidomain MIFs, retrieve associated CATH labels
+4. Retrieve CATH database label to description (name) mapping
+5. Simplify the above to a TSV file that can be easily read into pandas
+6. Get list of non-redundant single domain proteins for use in MOTIF analysis
 
 ```
 cat combined_tacc_FSQcov80.u   | parallel -j 8 'count=$(curl -s "https://ted.cathdb.info/api/v1/uniprot/summary/{}?skip=0&limit=100" | jq ".count") echo "{}, $count"' > tacc2domcounts
@@ -155,12 +134,15 @@ awk -F"    " 'NR > 17 {OFS="\t"; print $1, $3 }' cath-names.txt | sed 's/://g' >
 
 awk -F", " 'FNR==NR {arr[$1] ; next} $1 in arr {print $0}' combined_tacc_FSQcov80.u  tacc2domcounts | awk -F", " '$2==1 {print $1}' > tacc2domcounts_nonredun_singledom_accs
 ```
+# Note: 
 
+After initially running this pipeline we made two major updates.
 
-# Motif Analysis 
+1) Changing original Foldseek parameters from **--cove-mode 0 ** (target and query coverage of 80% in the alignment) to **--cov-mode 2 ** (just query coverage of 80% in the alignment) to avoid filtering out multidomain MIF mimics 
+2) An earlier version of the pipeline pulled accessions from the first column when using UniProt ID mapping. This results in redundant accessions in cases where IDs have been merged. We went back and removed those redundant accessions, however we are okay with redundant/identical sequences if they are still mapped to unique accessions as this may represent and identical gene in different but closely related organisms.
 
-1. Retreived Relevant Structures for structure gudied motif analysis (see jupyter notebook for details).
+In both of the above cases we either:
+a) Re-ran the pipeline steps with adjusted parameters/input data
+b) Ran the same analysis on just the new accessions and then merged with the old accessions for time/compute intensive task
+c) Removed the redundant accessions at the output steps for time/compute intensive task
 
-```
-cat combined_tacc_FSQcov80.u | parallel "curl 'https://alphafold.ebi.ac.uk/files/AF-{}-F1-model_v4.pdb' -o /local/workdir/djl294/all_mif_structs
-```
