@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-03-21T14:52:03.154778</dc:date>
+    <dc:date>2026-10-01T16:10:11.960072</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -79,7 +79,7 @@ C 237.364235 82.129888 261.296644 92.412791 281.92655 107.73457
 C 302.556456 123.056348 319.316886 142.995914 330.862924 165.953242 
 C 342.408961 188.91057 348.423286 214.254726 348.423286 239.952 
 z
-" clip-path="url(#p33f2b223bb)" style="fill: #a1c9f4; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#pc8baa551dd)" style="fill: #1f77b4; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
     <path d="M 183.729 239.952 
@@ -89,7 +89,7 @@ L 21.665884 269.273567
 C 14.469836 229.500317 22.16131 188.43711 43.264218 153.964485 
 C 64.367126 119.49186 97.439236 93.965771 136.133602 82.284991 
 z
-" clip-path="url(#p33f2b223bb)" style="fill: #ffb482; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#pc8baa551dd)" style="fill: #ff7f0e; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
     <path d="M 183.729 239.952 
@@ -99,7 +99,7 @@ L 156.911494 402.448243
 C 123.388178 396.915736 92.384334 381.142584 68.174485 357.303446 
 C 43.964636 333.464307 27.714985 302.707528 21.665884 269.273567 
 z
-" clip-path="url(#p33f2b223bb)" style="fill: #8de5a1; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#pc8baa551dd)" style="fill: #2ca02c; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="patch_6">
     <path d="M 183.729 239.952 
@@ -109,7 +109,7 @@ L 318.622463 334.43989
 C 300.817015 359.859429 276.183867 379.735734 247.575591 391.767087 
 C 218.967314 403.79844 187.532545 407.501777 156.911494 402.448243 
 z
-" clip-path="url(#p33f2b223bb)" style="fill: #ff9f9b; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#pc8baa551dd)" style="fill: #d62728; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="patch_7">
     <path d="M 183.729 239.952 
@@ -119,7 +119,7 @@ L 329.703637 316.212168
 C 328.056097 319.365832 326.306791 322.465279 324.458474 325.505626 
 C 322.610157 328.545973 320.663798 331.525625 318.622463 334.43989 
 z
-" clip-path="url(#p33f2b223bb)" style="fill: #d0bbff; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#pc8baa551dd)" style="fill: #9467bd; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="patch_8">
     <path d="M 183.729 239.952 
@@ -129,7 +129,7 @@ L 348.423286 239.952
 C 348.423286 253.18253 346.828996 266.364988 343.674923 279.214063 
 C 340.520849 292.063139 335.829911 304.48546 329.703637 316.212168 
 z
-" clip-path="url(#p33f2b223bb)" style="fill: #debb9b; stroke: #ffffff; stroke-linejoin: miter"/>
+" clip-path="url(#pc8baa551dd)" style="fill: #8c564b; stroke: #ffffff; stroke-linejoin: miter"/>
    </g>
    <g id="matplotlib.axis_1"/>
    <g id="matplotlib.axis_2"/>
@@ -176,7 +176,7 @@ L 417.4509 189.048094
 L 417.4509 178.548094 
 L 387.4509 178.548094 
 z
-" style="fill: #a1c9f4; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #1f77b4; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_2">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="429.4509" y="189.048094" transform="rotate(-0 429.4509 189.048094)">Cyanobacteriota: 29.7%</text>
@@ -187,7 +187,7 @@ L 417.4509 211.065281
 L 417.4509 200.565281 
 L 387.4509 200.565281 
 z
-" style="fill: #ffb482; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #ff7f0e; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_3">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="429.4509" y="211.065281" transform="rotate(-0 429.4509 211.065281)">Bacillota: 23.2%</text>
@@ -198,7 +198,7 @@ L 417.4509 233.082469
 L 417.4509 222.582469 
 L 387.4509 222.582469 
 z
-" style="fill: #8de5a1; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #2ca02c; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_4">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="429.4509" y="233.082469" transform="rotate(-0 429.4509 233.082469)">Pseudomonadota: 19.5%</text>
@@ -209,7 +209,7 @@ L 417.4509 255.099656
 L 417.4509 244.599656 
 L 387.4509 244.599656 
 z
-" style="fill: #ff9f9b; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #d62728; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_5">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="429.4509" y="255.099656" transform="rotate(-0 429.4509 255.099656)">Actinomycetota: 17.9%</text>
@@ -220,7 +220,7 @@ L 417.4509 277.116844
 L 417.4509 266.616844 
 L 387.4509 266.616844 
 z
-" style="fill: #d0bbff; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #9467bd; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_6">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="429.4509" y="277.116844" transform="rotate(-0 429.4509 277.116844)">Verrucomicrobiota: 2.1%</text>
@@ -231,7 +231,7 @@ L 417.4509 299.134031
 L 417.4509 288.634031 
 L 387.4509 288.634031 
 z
-" style="fill: #debb9b; stroke: #ffffff; stroke-linejoin: miter"/>
+" style="fill: #8c564b; stroke: #ffffff; stroke-linejoin: miter"/>
     </g>
     <g id="text_7">
      <text style="font: 15px 'DejaVu Sans', 'Bitstream Vera Sans', 'Computer Modern Sans Serif', 'Lucida Grande', 'Verdana', 'Geneva', 'Lucid', 'Arial', 'Helvetica', 'Avant Garde', sans-serif; text-anchor: start" x="429.4509" y="299.134031" transform="rotate(-0 429.4509 299.134031)">Other: 7.7%</text>
@@ -240,7 +240,7 @@ z
   </g>
  </g>
  <defs>
-  <clipPath id="p33f2b223bb">
+  <clipPath id="pc8baa551dd">
    <path d="M 356.658 239.952 
 C 356.658 217.243172 352.184856 194.755158 343.494564 173.774937 
 C 334.804271 152.794715 322.065835 133.730298 306.008269 117.672731 
