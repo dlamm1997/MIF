@@ -104,6 +104,7 @@ deeplocpro -f /workdir/djl294/MIFs.fasta  -o /workdir/djl294/deeplocpro_out/
 # Motif Analysis 
 
 1. Retrieved relevant structures for structure guided motif analysis (see jupyter notebook for details).
+2. When re-running for FDR calculation, structures were retrieved with get_seqs.sh
 
 ```
 cat combined_tacc_FSQcov80.u | parallel "curl 'https://alphafold.ebi.ac.uk/files/AF-{}-F1-model_v4.pdb' -o /local/workdir/djl294/all_mif_structs
